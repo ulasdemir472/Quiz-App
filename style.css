@@ -1,0 +1,25 @@
+body{
+    background-color: rgb(29, 26, 26) !important;
+}
+.container{
+    height: 100vh;
+    width: 100vw;
+}
+#home a{
+    width: 200px;
+    padding: 15px;
+}
+#home h1{
+    color: #fff;
+    margin-bottom: 50px;
+    font-size:3rem;
+}
+.btn:hover{
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(8,114,244,0.6);
+    transition: transform 150ms;
+    transform:scale(1.03);
+}
+.fa-crown{
+    margin-left: 5px;
+    font-size: 20px;
+}

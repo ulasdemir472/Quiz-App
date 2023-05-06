@@ -1,0 +1,65 @@
+#game{
+    color: #fff;
+}
+h1{
+    color: #fff;
+    font-size: 3rem;
+    margin: 20px;
+    padding: 10px;
+}
+.choice-container{
+    display: flex;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    border-radius: 5px;
+    background: rgb(18,93,255);
+    font-size: 1.5rem;
+    min-width: 60rem;
+}
+.choice-container:hover{
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(6,103,247,0.5);
+    transform: scale(1.02);
+    transform: transform 100ms;
+}
+.choice{
+    padding: 0.8rem 1rem;
+}
+.choice-text{
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.true{
+    background: linear-gradient(32deg,rgba(11,223,36) 0%,rgb(41,232,111) 100%);
+}
+.false{
+    background: linear-gradient(32deg,rgba(230,29,29,1) 0%,rgb(224,11,11,1) 100%);
+}
+
+.progressText{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.progressBar{
+    width: 20rem;
+    height: 3rem;
+    border: 0.2rem solid rgb(11,223,36);
+    margin-top: 2rem;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.progressBarFull{
+    height: 100%;
+    background: rgb(11,223,36);
+    width: 0%;
+}
+.clock{
+    height: 50px;
+    font-size: 2.5rem;
+    margin-top: -10px;
+}
+.btn{
+    width: 100px;
+    height: 40px;
+}
