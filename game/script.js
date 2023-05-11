@@ -90,17 +90,17 @@ const getNewQuestion = () => {
     return (window.location.href = "/gameEnd/end.html");
   }
 
-  if (unansweredQuestions.length === 1) {
-    //son soruda butonları kapat
-    nextBtn.disabled = true;
-    prevBtn.disabled = true;
-  }
-
   currentQuestion = unansweredQuestions[questionCounter - 1];
   question.innerText = currentQuestion.question;
 
-  if (currentQuestion.number == 1) {
-    //başta prev butonu disable et
+  // if (currentQuestion.number == 1) {
+  //   //başta prev butonu disable et
+  //   prevBtn.disabled = true;
+  // } else {
+  //   prevBtn.disabled = false;
+  // }
+
+  if (unansweredQuestions.shift() === currentQuestion) {
     prevBtn.disabled = true;
   } else {
     prevBtn.disabled = false;
@@ -116,6 +116,12 @@ const getNewQuestion = () => {
     nextBtn.disabled = true;
   } else {
     nextBtn.disabled = false;
+  }
+
+  if (unansweredQuestions.length === 1) {
+    //son soruda butonları kapat
+    nextBtn.disabled = true;
+    prevBtn.disabled = true;
   }
 
   choices.forEach((choice) => {
@@ -143,6 +149,18 @@ const getPreviousQuestion = () => {
     nextBtn.disabled = true;
   } else {
     nextBtn.disabled = false;
+  }
+
+  if (unansweredQuestions.length === 1) {
+    //son soruda butonları kapat
+    nextBtn.disabled = true;
+    prevBtn.disabled = true;
+  }
+  if (unansweredQuestions.shift() === currentQuestion) {
+    //öncesinde soru yoksa prev button disabled
+    prevBtn.disabled = true;
+  } else {
+    prevBtn.disabled = false;
   }
 
   choices.forEach((choice) => {
