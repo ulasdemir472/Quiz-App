@@ -1,5 +1,5 @@
-const question = document.querySelector(".question");
-const choices = Array.from(document.querySelectorAll(".choice-text"));
+const question = document.querySelector(".question"); //soru yazılan yer
+const choices = Array.from(document.querySelectorAll(".choice-text")); //şıklar
 const progressText = document.querySelector(".progressText");
 const scoreText = document.querySelector(".score");
 const progressBarFull = document.querySelector(".progressBarFull");
@@ -13,6 +13,7 @@ let score = 0;
 let questionCounter = 0;
 let time = 180;
 
+//önce soru eklenir sonra local storage a kaydedilip gösterilir.
 let questions = JSON.parse(localStorage.getItem("questions")) || [];
 
 const SCORE_POINTS = 100;
@@ -22,10 +23,10 @@ const startGame = () => {
   questionCounter = 0;
   score = 0;
   setInterval(timerFunction, 1000);
-  getNewQuestion();
+  getNextQuestion();
 };
 
-const getNewQuestion = () => {
+const getNextQuestion = () => {
   questionCounter++;
 
   let unansweredQuestions = questions.filter((question) => !question.answered);
@@ -45,7 +46,7 @@ const getNewQuestion = () => {
   }%`;
 
   if (currentQuestion.number === MAX_QUESTION) {
-    //son soruya gelince next butonu disable et
+    //son soruya gelince next butonu disable et dolaşırken
     nextBtn.disabled = true;
   } else {
     nextBtn.disabled = false;
@@ -117,7 +118,7 @@ choices.forEach((choice) => {
     if (!acceptAnswers) return;
     acceptAnswers = false;
 
-    currentQuestion.answered = true;
+    currentQuestion.answered = true; //şık işaretlendiğinde soru cevaplandı olarak görünür
     if (currentQuestion.number === MAX_QUESTION) {
       questionCounter = 0;
     } else {
@@ -142,7 +143,7 @@ choices.forEach((choice) => {
     setTimeout(() => {
       selectedChoice.parentElement.classList.remove(toApply);
       correctChoice.parentElement.classList.remove("true");
-      getNewQuestion();
+      getNextQuestion();
     }, 1000);
   });
 });

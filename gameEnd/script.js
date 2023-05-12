@@ -8,7 +8,7 @@ const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 finalScore.innerText = `Your Score : ${score}`;
 
 username.addEventListener("keyup", () => {
-  save.disabled = !username.value;
+  save.disabled = !username.value; //kullanıcı username girmeden skorunu kaydedemez
 });
 
 const saveHighScore = (e) => {
