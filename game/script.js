@@ -8,64 +8,12 @@ const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
 let currentQuestion = {};
-let previousQuestion = {};
 let acceptAnswers = true;
 let score = 0;
 let questionCounter = 0;
-let time = 300;
-let questions = [
-  {
-    question: "What is my age?",
-    choice1: "2",
-    choice2: "12",
-    choice3: "22",
-    choice4: "21",
-    answer: "4",
-    number: 1,
-    answered: false,
-  },
-  {
-    question: "How are you?",
-    choice1: "Good",
-    choice2: "Bad",
-    choice3: "Idk",
-    choice4: "What",
-    answer: "3",
-    number: 2,
-    answered: false,
-  },
-  {
-    question: "5+6?",
-    choice1: "2",
-    choice2: "11",
-    choice3: "22",
-    choice4: "31",
-    answer: "2",
-    number: 3,
-    answered: false,
-  },
-  {
-    question: "6+6?",
-    choice1: "2",
-    choice2: "11",
-    choice3: "12",
-    choice4: "31",
-    answer: "3",
-    number: 4,
-    answered: false,
-  },
-  {
-    question: "7+6?",
-    choice1: "2",
-    choice2: "11",
-    choice3: "22",
-    choice4: "13",
-    answer: "4",
-    number: 5,
-    answered: false,
-  },
-];
-//let questions = JSON.parse(localStorage.getItem("questions")) || [];
+let time = 180;
+
+let questions = JSON.parse(localStorage.getItem("questions")) || [];
 
 const SCORE_POINTS = 100;
 const MAX_QUESTION = questions.length;
@@ -73,9 +21,7 @@ const MAX_QUESTION = questions.length;
 const startGame = () => {
   questionCounter = 0;
   score = 0;
-  localStorage.setItem("questions", JSON.stringify(questions));
-  //setInterval(timerFunction, 1000);
-
+  setInterval(timerFunction, 1000);
   getNewQuestion();
 };
 
@@ -93,19 +39,6 @@ const getNewQuestion = () => {
   currentQuestion = unansweredQuestions[questionCounter - 1];
   question.innerText = currentQuestion.question;
 
-  // if (currentQuestion.number == 1) {
-  //   //başta prev butonu disable et
-  //   prevBtn.disabled = true;
-  // } else {
-  //   prevBtn.disabled = false;
-  // }
-
-  if (unansweredQuestions.shift() === currentQuestion) {
-    prevBtn.disabled = true;
-  } else {
-    prevBtn.disabled = false;
-  }
-
   progressText.innerText = `Question ${currentQuestion.number} of ${MAX_QUESTION}`;
   progressBarFull.style.width = `${
     (currentQuestion.number / MAX_QUESTION) * 100
@@ -122,6 +55,13 @@ const getNewQuestion = () => {
     //son soruda butonları kapat
     nextBtn.disabled = true;
     prevBtn.disabled = true;
+  }
+
+  if (unansweredQuestions.shift() === currentQuestion) {
+    //ilk eleman şuanki soruysa prev disabled
+    prevBtn.disabled = true;
+  } else {
+    prevBtn.disabled = false;
   }
 
   choices.forEach((choice) => {
@@ -156,6 +96,7 @@ const getPreviousQuestion = () => {
     nextBtn.disabled = true;
     prevBtn.disabled = true;
   }
+
   if (unansweredQuestions.shift() === currentQuestion) {
     //öncesinde soru yoksa prev button disabled
     prevBtn.disabled = true;
@@ -177,7 +118,11 @@ choices.forEach((choice) => {
     acceptAnswers = false;
 
     currentQuestion.answered = true;
-    questionCounter--;
+    if (currentQuestion.number === MAX_QUESTION) {
+      questionCounter = 0;
+    } else {
+      questionCounter--;
+    }
 
     const selectedChoice = e.target;
     const selectedAnswer = selectedChoice.dataset["number"];
